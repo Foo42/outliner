@@ -1,0 +1,20 @@
+* Overview
+** User Experience
+*** Loading
+User can navigate between markdown files hosted on server.
+*** Viewing
+User sees the markdown rendered as html
+**** Collapsing
+Can use keyboard shortcuts to navigate up, down, in, and out of documents tree structure. Can use a shortcut to collapse 'current' section. Can use shortcuts to expand current, or current with all children
+*** Editing
+**** Reordering
+Can use keyboard shortcuts to move 'current' item up, down, in, or out within the document structure.
+**** Adding Content
+Use shortcut (eg o and O) to create new items above or below current. Perhaps derive item type from first character, ie * for bullet, + for number and # for heading?
+
+* Data flow
+** Load 
+** create state tree
+** render state tree into html (via react)
+** Actions manipulate state tree (which is then reflected in the view)
+** Save 
