@@ -18,3 +18,35 @@ Use shortcut (eg o and O) to create new items above or below current. Perhaps de
 ** render state tree into html (via react)
 ** Actions manipulate state tree (which is then reflected in the view)
 ** Save 
+* Rendering
+** Node Types
+There are fundamentally two categories of nodes: leaves and (sub)trees.
+Each time you create a new element it is either a subtree/list of a leaf. When you add an element to a tree, it has an outer type rendered by the tree containing it, and an inner type which is influenced by what it actually is.
+*** Trees
+We could consider there to be multiple types of tree (or list really). The type of list provides a container around each child item. For example in a bulleted list, each child is wrapped in a li.
+**** Bulleted list
+Entire list wrapped in an ul, Each child is wrapped in an li.
+**** Numbered lists
+Entire list wrapped in an ol, Each child is wrapped in an li
+**** Section?
+Entire list wrapped in a section. Initial element wrapped in a heading (which level?). Following elements wrapped in... (paragraphs?? - maybe only if they are text leaves?)
+
+*** Leaves
+**** Headings
+Are headings really leaves? In many ways the things that follow  a heading are below it (except for headings of a higher level). Should we have the notion of a 'section' which has a heading plus other children. 
+**** Text
+**** Bullets
+
+* UI
+** Creating nodes
+   User could begin creating a new node with a command mode keystroke such as o or O to 'open' a new element above or below. We could infer the (inner) type of the new element by the leading character(s). So one could begin a new bulleted list with '*', a new section with '#' and a new numbered list with '+' or something. 
+** Adding new nodes to grandfather
+Could imagine a common case where one wants to add a new node to the list above ones parent (or even further up). Consider some syntax such as starting element with '<*' for example to add a new bulletted list but a level up than '*' would.
+
+* State structure
+Good to keep the actual document, separate from ui state stuff.
+** Document
+** Command build up
+** Current selection
+** Clipboard (ie cut content)
+** Node labelling

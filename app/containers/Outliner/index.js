@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import makeSelectOutliner from './selectors';
-import NodeList from '../../components/outline/NodeList';
+import Node from '../../components/outline/Node';
 
 export class Outliner extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -24,7 +24,7 @@ export class Outliner extends React.Component { // eslint-disable-line react/pre
           ]}
         />
         Outline
-        <NodeList {...outlineRoot}/>
+        <Node {...outlineRoot}/>
       </div>
     );
   }
