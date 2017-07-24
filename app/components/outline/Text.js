@@ -1,5 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { cursorStyling } from './styleGenerator';
 
-export default function Text({text}){
-  return (<p>{text}</p>);
+function Text({ text, isSelected }) {
+  return (<p style={cursorStyling(isSelected)}>{text}</p>);
 }
+
+export default Text;
+
+Text.propTypes = {
+  text: PropTypes.string,
+  isSelected: PropTypes.bool,
+};

@@ -1,5 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { cursorStyling } from './styleGenerator';
 
-export default function Heading({text}){
-  return (<h2>{text}</h2>);
+function Heading({ text, isSelected }) {
+  return (<h2 style={cursorStyling(isSelected)}>{text}</h2>);
 }
+
+Heading.propTypes = {
+  text: PropTypes.string,
+  isSelected: PropTypes.bool,
+};
+
+export default Heading;

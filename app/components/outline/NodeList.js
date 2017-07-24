@@ -1,12 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Heading from './Heading';
+import { cursorStyling } from './styleGenerator';
 
-export default function NodeList({childItems}){
-  const mapped = childItems.map(item => (<Heading {...item}/>));
-  return (<section>{mapped}</section>);
+function NodeList({ childItems, isSelected }) {
+  const mapped = childItems.map((item) => (<Heading {...item} />));
+  return (<section style={cursorStyling(isSelected)}>{mapped}</section>);
 }
 
-// How do we want to render child items?
-/* Each element in tree is either a leaf or a subtree. Each leaf does nto need to worry about child items by definition.
-Subtrees should enumerate each of their children mapping it into the correct element type
-*/
+NodeList.propTypes = {
+  childItems: PropTypes.array,
+  isSelected: PropTypes.bool,
+};
+
+export default NodeList;

@@ -2,8 +2,8 @@ import BulletedNodeList from './BulletedNodeList';
 import Text from './Text';
 import Heading from './Heading';
 
-export default function Node(node){
-  console.log('finding element for ',node);
+export default function Node(node) {
+  console.log('finding element for ', node);
   switch (node.type) {
     case 'text':
       return Text(node);
