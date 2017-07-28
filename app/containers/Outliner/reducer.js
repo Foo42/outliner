@@ -9,6 +9,7 @@ import {
   DEFAULT_ACTION,
   MOVE_CURSOR_DOWN_ACTION,
 } from './constants';
+import commandInputReducer from '../CommandInput/reducer';
 
 const defaultOutline = { type: 'bullet-list', childItems: [{ type: 'text', text: 'Hello' }, { type: 'text', text: 'World' }, { type: 'bullet-list', childItems: [{ type: 'text', text: 'Hello sublists!' }] }] };
 
@@ -34,7 +35,11 @@ function outlinerReducer(state = initialState, action) {
   }
 }
 
-export default outlinerReducer;
+function masterReducer(state, action) {
+  const updatedMain = outlinerReducer(state, action);
+  return updatedMain.setIn(['ui', 'commandInput'], commandInputReducer(updatedMain.getIn(['ui', 'commandInput']), action));
+}
+export default masterReducer;
 
 function moveCursorDown(state) {
   console.log('moving cursor down', state.toJS());

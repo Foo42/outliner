@@ -13,11 +13,11 @@ Can use keyboard shortcuts to move 'current' item up, down, in, or out within th
 Use shortcut (eg o and O) to create new items above or below current. Perhaps derive item type from first character, ie * for bullet, + for number and # for heading?
 
 * Data flow
-** Load 
+** Load
 ** create state tree
 ** render state tree into html (via react)
 ** Actions manipulate state tree (which is then reflected in the view)
-** Save 
+** Save
 * Rendering
 ** Node Types
 There are fundamentally two categories of nodes: leaves and (sub)trees.
@@ -33,20 +33,32 @@ Entire list wrapped in a section. Initial element wrapped in a heading (which le
 
 *** Leaves
 **** Headings
-Are headings really leaves? In many ways the things that follow  a heading are below it (except for headings of a higher level). Should we have the notion of a 'section' which has a heading plus other children. 
+Are headings really leaves? In many ways the things that follow  a heading are below it (except for headings of a higher level). Should we have the notion of a 'section' which has a heading plus other children.
 **** Text
 **** Bullets
 
 * UI
 ** Creating nodes
-   User could begin creating a new node with a command mode keystroke such as o or O to 'open' a new element above or below. We could infer the (inner) type of the new element by the leading character(s). So one could begin a new bulleted list with '*', a new section with '#' and a new numbered list with '+' or something. 
+   User could begin creating a new node with a command mode keystroke such as o or O to 'open' a new element above or below. We could infer the (inner) type of the new element by the leading character(s). So one could begin a new bulleted list with '*', a new section with '#' and a new numbered list with '+' or something.
 ** Adding new nodes to grandfather
 Could imagine a common case where one wants to add a new node to the list above ones parent (or even further up). Consider some syntax such as starting element with '<*' for example to add a new bulletted list but a level up than '*' would.
+** Multi-window support
+   Can imagine workflows where it would be useful different views of the same document open. This would suggest the document would be shared, but information about collapse state etc would be per window. One window would be the focused window and thus commands would act on it, with movement commands respecting the indent structure of it.
 
 * State structure
 Good to keep the actual document, separate from ui state stuff.
-** Document
-** Command build up
-** Current selection
-** Clipboard (ie cut content)
-** Node labelling
+** Parts
+*** Command build up
+*** Document
+*** Current selection
+*** Clipboard (ie cut content)
+*** Node labelling
+*** Inforation about windows?
+** Reducer combination
+*** Command build with other
+    State about commands being built up needs storing. Once a command is complete it should fire and action which will act on the other parts of the state tree, such as the outline for structural actions.
+    If the command state is a branch in the main state tree it can be processed by a handles actions which append to or clear it. The command component can make a choice on each keypress to either dispatch a full command, or partial which merely builds up the command state.
+**** Questions
+*****  Where do we want to mount the command provider component? Inside or alongside the outliner?
+***** Where should we connect it's reducer
+      does it have to mirror the hierarchy we mount the component in the visual tree?

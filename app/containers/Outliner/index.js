@@ -10,7 +10,7 @@ import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import makeSelectOutliner from './selectors';
 import Node from '../../components/outline/Node';
-import CommandInput from '../../components/CommandInput';
+import CommandInput from '../CommandInput/index';
 
 export class Outliner extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -27,14 +27,13 @@ export class Outliner extends React.Component { // eslint-disable-line react/pre
         />
         Outline
         <Node {...outlineRoot} />
-        <CommandInput dispatch={this.props.dispatch} />
+        <CommandInput />
       </div>
     );
   }
 }
 
 Outliner.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   Outliner: {
     outline: PropTypes.object,
   },
