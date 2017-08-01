@@ -9,9 +9,11 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import makeSelectCommandInput from './selectors';
 
+import { clearCommandString, addToCommandString } from './actions';
 import { moveCursorDown } from '../Outliner/actions';
 
-function buildCommand(commandString) {
+function buildCommand(currentCommandString, newestChar) {
+  const commandString = currentCommandString + newestChar;
   console.log('command string', commandString);
   if (commandString === 'j') {
     return moveCursorDown();
@@ -19,13 +21,15 @@ function buildCommand(commandString) {
   return false;
 }
 
-function commandUpdated(dispatch) {
+function commandUpdated(currentCommandString, dispatch) {
   return (event) => {
-    const target = event.target;
-    const command = buildCommand(event.target.value);
+    console.log('event', Object.keys(event));
+    const command = buildCommand(currentCommandString, event.key);
     if (command) {
       dispatch(command);
-      target.value = '';
+      dispatch(clearCommandString());
+    } else {
+      dispatch(addToCommandString(event.key));
     }
   };
 }
@@ -33,15 +37,19 @@ function commandUpdated(dispatch) {
 export class CommandInput extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const dispatch = this.props.dispatch;
+    const { currentCommandString } = this.props.CommandInput;
     console.log('disable', dispatch);
     return (
-      <input autoFocus placeholder="commands" onInput={commandUpdated(dispatch)}></input>
+        <input autoFocus placeholder="commands" value={currentCommandString} onKeyUp={commandUpdated(currentCommandString, dispatch)}></input>
     );
   }
 }
 
 CommandInput.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  CommandInput: PropTypes.shape({
+    currentCommandString: PropTypes.string,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
